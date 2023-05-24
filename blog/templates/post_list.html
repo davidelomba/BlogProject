@@ -31,10 +31,11 @@
                 <div class="card" style="width: 18rem;">
                     <img src="{{post.image.url}}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">{{ post.title }}</h5>
-                        <p class="card-text">{{ post.content }}</p>
-                        <a href="#" class="btn btn-primary">Acquista</a>
-                    </div>
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+                    <p class="card-text">{{post.content|slice:":200" }}</p>
+                    <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
+                </div>
                 </div>
             </div>
             {% endfor %}
