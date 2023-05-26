@@ -7,8 +7,11 @@
     <div class="col-md-8 card mb-4  mt-3 left  top">
       <div class="card-body">
         <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
-        <p class=" text-muted">{{ post.author }} | {{ post.created_on }} - <a href="{% url 'update_post' post.pk %}">Edit &rarr;</a> - <a href="{% url 'delete_post' post.pk %}">Delete &rarr;</a></p>
-        <p class="card-text ">{{ object.content | safe }}</p>
+          <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
+            {% if user.is_authenticated %}
+                <p><a href="{% url 'update_post' post.pk %}">Edit &rarr;</a> <a href="{% url 'delete_post' post.pk %}">Delete &rarr;</a></p>
+            {% endif %}
+          <p class="card-text ">{{ object.content | safe }}</p>
       </div>
     </div>
   </div>

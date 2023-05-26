@@ -2,15 +2,19 @@
 
 {% block content %}
 
-    <div style="text-align: center;">
+    {% if user.is_authenticated %}
 
-            <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Update" class="btn btn-primary">
-            </form>
-
-    </div>
-
+        <div style="text-align: center;">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Update" class="btn btn-primary">
+                </form>
+        </div>
+    {% else %}
+        <div style="text-align: center;">
+            <h2>You are not the author of this post!</h2>
+        </div>
+    {% endif %}
 
 {% endblock content %}
