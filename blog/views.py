@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
 from django.http import HttpResponseRedirect
 from .forms import PostForm
@@ -30,6 +31,12 @@ class UpdatePost(generic.UpdateView):
     model = Post
     template_name = 'update_post.html'
     fields = ['title', 'content', 'slug']
+
+
+class DeletePost(generic.DeleteView):
+    model = Post
+    template_name = 'delete_post.html'
+    success_url = reverse_lazy('home')
 
 
 def add_post(request):
