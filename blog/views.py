@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
+from django.http import HttpResponseRedirect
+from .forms import PostForm
 from .models import Post
 
 
@@ -24,7 +26,22 @@ class PostDetail(generic.DetailView):
     template_name = 'post_detail.html'
 
 
-class AddPost(generic.CreateView):
+class UpdatePost(generic.UpdateView):
     model = Post
-    template_name = 'add_post.html'
-    fields = '__all__'
+    template_name = 'update_post.html'
+    fields = ['title', 'content', 'slug']
+
+
+def add_post(request):
+    submitted = False
+
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/add_post?submitted=True')
+    else:
+        form = PostForm
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'add_post.html', {'form': form, 'submitted': submitted})
