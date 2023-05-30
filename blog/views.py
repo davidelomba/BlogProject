@@ -62,5 +62,5 @@ class AddCategoryView(generic.CreateView):
 
 
 def CategoryView(request, cats):
-    category_post = Post.objects.filter(category=cats)
-    return render(request, 'categories.html', {'cats': cats, 'category_post': category_post})
+    category_post = Post.objects.filter(category=cats.replace('_', ' '))
+    return render(request, 'categories.html', {'cats': cats.title().replace('_', ' '), 'category_post': category_post})

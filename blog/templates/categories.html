@@ -1,44 +1,46 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-    <h2 align="center">{{ cats }}</h2>
-     <div class="container">
-        <div class="row">
-            {% for post in category_post %}
-                {% if user.is_authenticated and user == post.author%}
-                    <div class="col-sm">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                                <h2 class="card-title">{{ post.title }}</h2>
-                                <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
-                                <p class="card-text text-muted h6">{{ post.category }}</p>
-                                <p class="card-text">{{post.content|slice:":200" }}</p>
-                                <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More &rarr;</a>
-                                <a href="{% url 'update_post' post.pk %}" class="btn btn-primary">Edit &rarr;</a>
-                                <a href="{% url 'delete_post' post.pk %}" class="btn btn-primary">Delete &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-                {% else %}
-                    {% if post.status != 0%}
+    {% if category_post %}
+        <h2 align="center">{{ cats }}</h2>
+         <div class="container">
+            <div class="row">
+                {% for post in category_post %}
+                    {% if user.is_authenticated and user == post.author%}
                         <div class="col-sm">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
                                     <h2 class="card-title">{{ post.title }}</h2>
                                     <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
-                                    <p class="card-text text-muted h6">{{ post.category }}</p>
+                                    <a href="{%  url 'category' post.category|slugify %}" ><p class="card-text text-muted h6">{{ post.category }}</p></a>
                                     <p class="card-text">{{post.content|slice:":200" }}</p>
                                     <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More &rarr;</a>
+                                    <a href="{% url 'update_post' post.pk %}" class="btn btn-primary">Edit &rarr;</a>
+                                    <a href="{% url 'delete_post' post.pk %}" class="btn btn-primary">Delete &rarr;</a>
                                 </div>
                             </div>
                         </div>
+                    {% else %}
+                        {% if post.status != 0%}
+                            <div class="col-sm">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h2 class="card-title">{{ post.title }}</h2>
+                                        <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+                                        <a href="{%  url 'category' post.category|slugify %}" ><p class="card-text text-muted h6">{{ post.category }}</p></a>
+                                        <p class="card-text">{{post.content|slice:":200" }}</p>
+                                        <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More &rarr;</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
-
+    {% else %}
+        <h2 align="center"> Sorry, this category doesn't exist or it hasn't post</h2>
+    {% endif %}
     <div class="container my-5 text-center" style="max-width:580px">
         <a href="{% url 'contact' %}" type="button" class="btn btn-secondary">Contact us</a>
     </div>
