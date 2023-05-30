@@ -1,39 +1,18 @@
-<!doctype html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% block content %}
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
-    <title>Blog</title>
-</head>
-
-<body>
-    <!-- Image and text -->
-
-    {% extends 'base.html' %}
-
-    {% block content %}
-    <div class="container my-5 text-center" style="max-width:580px">
-        <h1>New Blog!</h1>
-        <p> This is a new blog!</p>
-    </div>
-
-    <div class="container">
+    <h2 align="center">{{ cats }}</h2>
+     <div class="container">
         <div class="row">
-            {% for post in posts %}
+            {% for post in category_post %}
                 {% if user.is_authenticated and user == post.author%}
                     <div class="col-sm">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
                                 <h2 class="card-title">{{ post.title }}</h2>
                                 <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
-                                <a href="{%  url 'category' post.category %}" ><p class="card-text text-muted h6">{{ post.category }}</p></a>
+                                <p class="card-text text-muted h6">{{ post.category }}</p>
                                 <p class="card-text">{{post.content|slice:":200" }}</p>
                                 <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More &rarr;</a>
                                 <a href="{% url 'update_post' post.pk %}" class="btn btn-primary">Edit &rarr;</a>
@@ -48,7 +27,7 @@
                                 <div class="card-body">
                                     <h2 class="card-title">{{ post.title }}</h2>
                                     <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
-                                    <a href="{%  url 'category' post.category %}" ><p class="card-text text-muted h6">{{ post.category }}</p></a>
+                                    <p class="card-text text-muted h6">{{ post.category }}</p>
                                     <p class="card-text">{{post.content|slice:":200" }}</p>
                                     <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More &rarr;</a>
                                 </div>
@@ -64,8 +43,4 @@
         <a href="{% url 'contact' %}" type="button" class="btn btn-secondary">Contact us</a>
     </div>
 
-    {% endblock %}
-
-</body>
-
-</html>
+{% endblock content%}
