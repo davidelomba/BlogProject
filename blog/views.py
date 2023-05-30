@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 from django.http import HttpResponseRedirect
+
 from .forms import PostForm
-from .models import Post
+from .models import Post, Category
 
 
 # Create your views here.
@@ -52,3 +53,9 @@ def add_post(request):
         if 'submitted' in request.GET:
             submitted = True
     return render(request, 'add_post.html', {'form': form, 'submitted': submitted})
+
+
+class AddCategoryView(generic.CreateView):
+    model = Category
+    template_name = 'add_category.html'
+    fields = '__all__'

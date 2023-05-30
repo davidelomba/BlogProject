@@ -27,20 +27,35 @@
     <div class="container">
         <div class="row">
             {% for post in posts %}
-            <div class="col-sm">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h2 class="card-title">{{ post.title }}</h2>
-                        <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
-                        <p class="card-text">{{post.content|slice:":200" }}</p>
-                        <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More &rarr;</a>
-                        {% if user.is_authenticated and user == post.author%}
-                            <a href="{% url 'update_post' post.pk %}" class="btn btn-primary">Edit &rarr;</a>
-                            <a href="{% url 'delete_post' post.pk %}" class="btn btn-primary">Delete &rarr;</a>
-                        {% endif %}
+                {% if user.is_authenticated and user == post.author%}
+                    <div class="col-sm">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h2 class="card-title">{{ post.title }}</h2>
+                                <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+                                <p class="card-text text-muted h6">{{ post.category }}</p>
+                                <p class="card-text">{{post.content|slice:":200" }}</p>
+                                <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More &rarr;</a>
+                                <a href="{% url 'update_post' post.pk %}" class="btn btn-primary">Edit &rarr;</a>
+                                <a href="{% url 'delete_post' post.pk %}" class="btn btn-primary">Delete &rarr;</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                {% else %}
+                    {% if post.status != 0%}
+                        <div class="col-sm">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h2 class="card-title">{{ post.title }}</h2>
+                                    <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+                                    <p class="card-text text-muted h6">{{ post.category }}</p>
+                                    <p class="card-text">{{post.content|slice:":200" }}</p>
+                                    <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
             {% endfor %}
         </div>
     </div>

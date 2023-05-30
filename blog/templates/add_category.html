@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div style="text-align: center;">
+            {% if submitted %}
+                <h2>Your post was submitted successfully!</h2>
+            {% else %}
+                <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Add" class="btn btn-primary">
+                </form>
+            {% endif %}
+        </div>
+    {% else %}
+         <div style="text-align: center;">
+            <h2>You are not logged!</h2>
+        </div>
+    {% endif %}
+
+
+{% endblock content %}
