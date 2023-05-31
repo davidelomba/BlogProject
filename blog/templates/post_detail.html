@@ -12,9 +12,18 @@
                 <p><a href="{% url 'update_post' post.pk %}">Edit &rarr;</a> <a href="{% url 'delete_post' post.pk %}">Delete &rarr;</a></p>
             {% endif %}
           <p class="card-text ">{{ object.content | safe }}</p>
+          {% if user.is_authenticated and user == post.author%}
+              <form action="{% url 'like_post' post.pk %}" method="POST">
+                  {% csrf_token %}
+                  <button type="submit" name="post_id" value="{{ post.id }}" class = "btn btn-primary btn-sm">{{ total_likes }} Like</button>
+              </form>
+          {% endif %}
       </div>
     </div>
   </div>
 </div>
+
+
+
 
 {% endblock content %}

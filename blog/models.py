@@ -27,6 +27,7 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
     category = models.CharField(max_length=200, default='Uncategorized')
+    likes = models.ManyToManyField(User, related_name="blog_post")
 
     class Meta:
         ordering = ['-created_on']
@@ -36,6 +37,9 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('home')
+
+    def total_likes(self):
+        return self.likes.count()
 
 
 class Category(models.Model):
