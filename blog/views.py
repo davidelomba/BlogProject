@@ -9,23 +9,31 @@ from .models import Post, Category
 
 # Create your views here.
 
-def blog(request):
-    posts = Post.objects.all()
-    return render(request, 'post_list.html', {'posts': posts})
-
-
-def contact(request):
-    return render(request, 'contact.html')
-
 
 class PostList(generic.ListView):
-    queryset = Post.objects.filter(status=1).order_by('-created_on')
+    model = Post
     template_name = 'post_list.html'
+    cats = Category.objects.all()
+    ordering = ['created_on']
+
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        context = super(PostList, self).get_context_data(*args, **kwargs)
+        context["cat_menu"] = cat_menu
+        print(cat_menu)
+        return context
 
 
 class PostDetail(generic.DetailView):
     model = Post
     template_name = 'post_detail.html'
+
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        context = super(PostDetail, self).get_context_data(*args, **kwargs)
+        context["cat_menu"] = cat_menu
+        print(cat_menu)
+        return context
 
 
 class UpdatePost(generic.UpdateView):
@@ -62,5 +70,10 @@ class AddCategoryView(generic.CreateView):
 
 
 def CategoryView(request, cats):
-    category_post = Post.objects.filter(category=cats.replace('_', ' '))
-    return render(request, 'categories.html', {'cats': cats.title().replace('_', ' '), 'category_post': category_post})
+    category_post = Post.objects.filter(category=cats.replace('-', ' '))
+    return render(request, 'categories.html', {'cats': cats.title().replace('-', ' '), 'category_post': category_post})
+
+
+def CategoryListView(request):
+    cat_menu_list = Category.objects.all()
+    return render(request, 'category_list.html', {'cat_menu_list': cat_menu_list})
