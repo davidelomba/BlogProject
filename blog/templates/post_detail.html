@@ -12,11 +12,20 @@
                 <p><a href="{% url 'update_post' post.pk %}">Edit &rarr;</a> <a href="{% url 'delete_post' post.pk %}">Delete &rarr;</a></p>
             {% endif %}
           <p class="card-text ">{{ object.content | safe }}</p>
-          {% if user.is_authenticated and user == post.author%}
-              <form action="{% url 'like_post' post.pk %}" method="POST">
-                  {% csrf_token %}
-                  <button type="submit" name="post_id" value="{{ post.id }}" class = "btn btn-primary btn-sm">{{ total_likes }} Like</button>
-              </form>
+          {% if user.is_authenticated%}
+              {% if liked %}
+                  <form action="{% url 'like_post' post.pk %}" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" name="post_id" value="{{ post.id }}" class = "btn btn-danger btn-sm">{{ total_likes }} UnLike</button>
+                  </form>
+              {% else %}
+                  <form action="{% url 'like_post' post.pk %}" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" name="post_id" value="{{ post.id }}" class = "btn btn-primary btn-sm">{{ total_likes }} Like</button>
+                  </form>
+              {% endif %}
+          {% else %}
+              <small><a href="{% url 'login' %}">Login</a> to Like the post</small>
           {% endif %}
       </div>
     </div>
