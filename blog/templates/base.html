@@ -32,25 +32,25 @@
                      </li>
                  {% else%}
                     <li class = "nav-item">
-                    <a class="nav-link" href="{% url 'category_list' %}">Categories</a>
+                        <a class="nav-link" href="{% url 'category_list' %}">Categories</a>
                     </li>
                  {% endif %}
                 {% if user.is_authenticated %}
                     <li class = "nav-item">
-                    <a class="nav-link" href="{% url 'add_post' %}">Add Post</a>
+                        <a class="nav-link" href="{% url 'add_post' %}">Add Post</a>
                     </li>
                     <li class = "nav-item">
-                    <a class="nav-link" href="{% url 'add_category' %}">Add Category</a>
+                        <a class="nav-link" href="{% url 'add_category' %}">Add Category</a>
                     </li>
                     <li class = "nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                     </li>
                 {% else %}
                     <li class = "nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
                     </li>
                     <li class = "nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
                     </li>
                 {% endif %}
             </ul>
