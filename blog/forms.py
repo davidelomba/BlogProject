@@ -13,7 +13,7 @@ for item in choices:
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'slug', 'author', 'category', 'content', 'status')
+        fields = ('title', 'slug', 'author', 'category', 'content', 'status', 'snippet')
         labels = {
             'title': 'Enter the title',
             'slug': 'Enter the slug',
@@ -25,4 +25,20 @@ class PostForm(ModelForm):
             'slug': forms.TextInput(attrs={'class': 'form-control'}),
             'category': forms.Select(choices=choice_list, attrs={'class': 'form-control'}),
             'author': forms.Select(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control'}),
+            'snippet': forms.Textarea(attrs={'class': 'form-control'}),
+
+        }
+
+
+class EditForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'content', 'slug', 'snippet', 'status')
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'slug': forms.TextInput(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control'}),
+            'snippet': forms.Textarea(attrs={'class': 'form-control'}),
+
         }

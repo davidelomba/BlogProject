@@ -3,7 +3,7 @@ from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.http import HttpResponseRedirect
 
-from .forms import PostForm
+from .forms import PostForm, EditForm
 from .models import Post, Category
 
 
@@ -44,8 +44,8 @@ class PostDetail(generic.DetailView):
 
 class UpdatePost(generic.UpdateView):
     model = Post
+    form_class = EditForm
     template_name = 'update_post.html'
-    fields = ['title', 'content', 'slug']
 
 
 class DeletePost(generic.DeleteView):
