@@ -13,9 +13,10 @@
                                     <h2 class="card-title">{{ post.title }}</h2>
                                     <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
                                     <a href="{%  url 'category' post.category|slugify %}" ><p class="card-text text-muted h6">{{ post.category }}</p></a>
-                                    <p class="card-text">{{post.content|slice:":200" }}</p>
+                                    <p class="card-text">{{post.snippet }}</p>
                                     <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More &rarr;</a>
                                     <a href="{% url 'update_post' post.pk %}" class="btn btn-primary">Edit &rarr;</a>
+                                    <br>
                                     <a href="{% url 'delete_post' post.pk %}" class="btn btn-primary">Delete &rarr;</a>
                                 </div>
                             </div>

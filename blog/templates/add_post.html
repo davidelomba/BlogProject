@@ -7,10 +7,10 @@
                 <h2>Your post was submitted successfully!</h2>
             {% else %}
                 <form method="POST">
-                {% csrf_token %}
-                {{ form.media }}
-                {{ form.as_p }}
-                <input type="submit" value="Post" class="btn btn-primary">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    {{ form.as_p }}
+                    <input type="submit" value="Post" class="btn btn-primary">
                 </form>
             {% endif %}
         </div>

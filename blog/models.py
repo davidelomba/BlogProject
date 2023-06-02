@@ -19,6 +19,14 @@ class NameField(models.CharField):
         return str(value).lower()
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, null='True', on_delete=models.CASCADE)
+    bio = models.TextField()
+
+    def __str__(self):
+        return str(self.user)
+
+
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
@@ -28,7 +36,7 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
     category = models.CharField(max_length=200, default='Uncategorized')
-    snippet = models.CharField(max_length=200, default='Click Link Above to Read Blog Post')
+    snippet = models.CharField(max_length=200, default='Click "Read More" to Read Blog Post')
     likes = models.ManyToManyField(User, related_name="blog_post")
 
     class Meta:

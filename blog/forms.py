@@ -13,7 +13,7 @@ for item in choices:
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'slug', 'author', 'category', 'content', 'status', 'snippet')
+        fields = ('title', 'slug', 'author', 'category', 'content', 'snippet', 'status')
         labels = {
             'title': 'Enter the title',
             'slug': 'Enter the slug',

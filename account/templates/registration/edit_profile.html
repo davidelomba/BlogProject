@@ -3,9 +3,11 @@
 {% block content %}
 
     <div style="text-align: justify;">
-
+            <br>
+            {{ user.profile.bio }}
             <form method="POST">
             {% csrf_token %}
+            <br>
             {{ form.as_p }}
             <a href="{% url 'change_password' %}" class="btn btn-primary">Change Password</a>
             <input type="submit" value="Update Profile" class="btn btn-primary">
