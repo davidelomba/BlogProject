@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='post',
             name='snippet',
-            field=models.CharField(default='Click Link Above to Read Blog Post', max_length=200),
+            field=models.CharField(default='Click "Read More" to Read the Post', max_length=200),
         ),
     ]
