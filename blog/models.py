@@ -22,6 +22,13 @@ class NameField(models.CharField):
 class Profile(models.Model):
     user = models.OneToOneField(User, null='True', on_delete=models.CASCADE)
     bio = models.TextField()
+    profile_pic = models.ImageField(blank=True, null=True, upload_to="images/profile/")
+    instagram = models.CharField(max_length=200, blank=True, null=True)
+    facebook = models.CharField(max_length=200, blank=True, null=True)
+    twitter = models.CharField(max_length=200, blank=True, null=True)
+
+
+
 
     def __str__(self):
         return str(self.user)
