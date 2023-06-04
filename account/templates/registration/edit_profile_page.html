@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if user.id == profile.user.id %}
+        <div style="text-align: center;">
+            {% if submitted %}
+                <h2>Your post was submitted successfully!</h2>
+            {% else %}
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Update Profile" class="btn btn-primary">
+                </form>
+            {% endif %}
+        </div>
+    {% else %}
+        <div style="text-align: center;">
+            <h2>You are not the correct user to edit this page!</h2>
+        </div>
+    {% endif %}
+{% else %}
+<div style="text-align: center;">
+    <h2>You are not logged!</h2>
+</div>
+{% endif %}
+{% endblock content %}

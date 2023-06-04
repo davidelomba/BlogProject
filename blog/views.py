@@ -32,7 +32,6 @@ class PostDetail(generic.DetailView):
         context = super(PostDetail, self).get_context_data(*args, **kwargs)
         stuff = get_object_or_404(Post, id=self.kwargs['pk'])
         total_likes = stuff.total_likes()
-
         liked = False
         if stuff.likes.filter(id=self.request.user.id).exists():
             liked = True

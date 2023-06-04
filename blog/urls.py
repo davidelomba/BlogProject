@@ -1,4 +1,6 @@
 from django.urls import path
+
+from account.views import ShowProfilePage, EditProfilePage
 from . import views
 from .views import PostDetail, UpdatePost, DeletePost, AddCategoryView, CategoryView, PostList, CategoryListView, \
     LikeView
@@ -13,4 +15,7 @@ urlpatterns = [
     path('category/<str:cats>/', CategoryView, name='category'),
     path('category_list/', CategoryListView, name='category_list'),
     path('like/<int:pk>', LikeView, name="like_post"),
+    path('<int:pk>/profile/', ShowProfilePage.as_view(), name = 'profile_page'),
+    path('<int:pk>/edit_profile_page/', EditProfilePage.as_view(), name='edit_profile_page'),
+
 ]
