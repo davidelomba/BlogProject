@@ -1,4 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from datetime import datetime
+
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.http import HttpResponseRedirect
@@ -97,14 +99,27 @@ def LikeView(request, pk):
     return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))
 
 
-class AddComment(CreateView):
-    model = Comment
-    form_class = CommentForm
-    template_name = 'add_comment.html'
 
-    def get_success_url(self):
-        return reverse_lazy('post_detail', kwargs={'pk': self.kwargs['pk']})
 
-    def form_valid(self, form):
-        form.instance.post_id = self.kwargs['pk']
-        return super().form_valid(form)
+
+def add_comment(request, pk):
+    eachComment = Post.objects.get(id=pk)
+
+    form = CommentForm(instance=eachComment)
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=eachComment)
+        if form.is_valid():
+            name = request.user.username
+            body = form.cleaned_data['body']
+
+            c = Comment(post=eachComment, name=name, body = body, date_added=datetime.now())
+            c.save()
+            return redirect('home')
+        else:
+            print('form is invalid')
+    else:
+        form = CommentForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'add_comment.html', context)

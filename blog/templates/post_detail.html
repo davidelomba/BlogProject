@@ -70,10 +70,19 @@
 <h2>Comments</h2>
 
 {% if not post.comments.all %}
-    <p>No comments yet...</p><a href="{%  url 'add_comment' post.pk%}">Add one</a>
+    <p>No comments yet...</p>
+    {% if user.is_authenticated%}
+        <a href="{%  url 'add_comment' post.pk %}">Add one</a>
+    {% else %}
+        <a href="{%  url 'login' %}">Login</a> to add a comment
+    {% endif %}
 {% else %}
     <br/><br/>
-    <a href="{%  url 'add_comment' post.pk%}"> Add Comment</a>
+    {% if user.is_authenticated%}
+        <a href="{%  url 'add_comment' post.pk%}"> Add Comment</a>
+    {% else %}
+        <a href="{%  url 'login' %}">Login</a> to add a comment
+    {% endif %}
     <br/><br/>
     {% for comment in post.comments.all %}
         <strong>{{ comment.name }} | {{ comment.date_added }}</strong>
