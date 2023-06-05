@@ -2,9 +2,10 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.http import HttpResponseRedirect
+from django.views.generic import CreateView
 
-from .forms import PostForm, EditForm
-from .models import Post, Category
+from .forms import PostForm, EditForm, CommentForm
+from .models import Post, Category, Comment
 
 
 # Create your views here.
@@ -87,10 +88,23 @@ def CategoryListView(request):
 def LikeView(request, pk):
     post = Post.objects.get(id=pk)
     liked = False
-    if post.likes.filter(id = request.user.id).exists():
+    if post.likes.filter(id=request.user.id).exists():
         post.likes.remove(request.user)
         liked = False
     else:
         post.likes.add(request.user)
         liked = True
     return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))
+
+
+class AddComment(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'add_comment.html'
+
+    def get_success_url(self):
+        return reverse_lazy('post_detail', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        return super().form_valid(form)

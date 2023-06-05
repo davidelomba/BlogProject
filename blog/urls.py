@@ -3,7 +3,7 @@ from django.urls import path
 from account.views import ShowProfilePage, EditProfilePage, CreateProfilePage
 from . import views
 from .views import PostDetail, UpdatePost, DeletePost, AddCategoryView, CategoryView, PostList, CategoryListView, \
-    LikeView
+    LikeView, AddComment
 
 urlpatterns = [
     path('', PostList.as_view(), name='home'),
@@ -18,4 +18,5 @@ urlpatterns = [
     path('<int:pk>/profile/', ShowProfilePage.as_view(), name = 'profile_page'),
     path('<int:pk>/edit_profile_page/', EditProfilePage.as_view(), name='edit_profile_page'),
     path('create_profile_page/', CreateProfilePage.as_view(), name='create_profile_page'),
+    path('post_detail/<int:pk>/add_comment', AddComment.as_view(), name='add_comment'),
 ]
