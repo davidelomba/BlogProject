@@ -37,6 +37,7 @@
                                 <p class="card-text">{{post.snippet | safe}}</p>
                                 <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More &rarr;</a>
                                 <a href="{% url 'update_post' post.pk %}" class="btn btn-primary">Edit &rarr;</a>
+                                 <br> <br>
                                 <a href="{% url 'delete_post' post.pk %}" class="btn btn-primary">Delete &rarr;</a>
                             </div>
                         </div>

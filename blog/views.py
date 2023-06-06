@@ -56,19 +56,10 @@ class DeletePost(generic.DeleteView):
     success_url = reverse_lazy('home')
 
 
-def add_post(request):
-    submitted = False
-
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/add_post?submitted=True')
-    else:
-        form = PostForm
-        if 'submitted' in request.GET:
-            submitted = True
-    return render(request, 'add_post.html', {'form': form, 'submitted': submitted})
+class AddPost(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'add_post.html'
 
 
 class AddCategoryView(generic.CreateView):
@@ -99,9 +90,6 @@ def LikeView(request, pk):
     return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))
 
 
-
-
-
 def add_comment(request, pk):
     eachComment = Post.objects.get(id=pk)
 
@@ -112,7 +100,7 @@ def add_comment(request, pk):
             name = request.user.username
             body = form.cleaned_data['body']
 
-            c = Comment(post=eachComment, name=name, body = body, date_added=datetime.now())
+            c = Comment(post=eachComment, name=name, body=body, date_added=datetime.now())
             c.save()
             return redirect('home')
         else:

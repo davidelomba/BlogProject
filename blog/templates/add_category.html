@@ -9,6 +9,9 @@
                 <form method="POST">
                 {% csrf_token %}
                 {{ form.as_p }}
+                <small>The name must be lower case</small>
+                <br/>
+                <br/>
                 <input type="submit" value="Add" class="btn btn-primary">
                 </form>
             {% endif %}
