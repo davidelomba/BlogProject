@@ -16,7 +16,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CSRF_COOKIE_DOMAIN = None
-CSRF_TRUSTED_ORIGINS = ['https://web-production-71282.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-71282.up.railway.app', '127.0.0:1']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
